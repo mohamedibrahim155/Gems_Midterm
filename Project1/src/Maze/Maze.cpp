@@ -97,12 +97,16 @@ bool Maze::GenerateMazeValue(std::vector<std::vector<char>> &maze)
 	return true;
 }
 
-bool Maze::IsWall(char& value)
+bool Maze::IsWall(int x, int y)
 {
-	if (value == 'X')
+	for (MazeQuad* quad : listOfQuadsWalled)
 	{
-		return true;
+		if (quad->GetPosition().x == x && quad->GetPosition().y)
+		{
+			return true;
+		}
 	}
+
 	return false;
 }
 
@@ -114,15 +118,35 @@ bool Maze::GenerateMazeMesh()
 	{
 		for (int j = 0; j < maze[i].size(); j++)
 		{
+			
 			if (maze[i][j] == 'X')
 			{
-				Model* cube = new Model(*DebugModels::GetInstance().defaultQuad, true);
+				MazeQuad* mazeWalled = new MazeQuad(true);
 
-				cube->transform.SetPosition(glm::vec3(-j-1, -i-1, 0));
-				cube->transform.SetScale(glm::vec3(0.5f));
+				mazeWalled->type = WALL;
 
-				GraphicsRender::GetInstance().AddModelAndShader(cube, GraphicsRender::GetInstance().solidColorShader);
+				mazeWalled->transform.SetPosition(glm::vec3(-j - 1, -i - 1, 0));
+				mazeWalled->transform.SetScale(glm::vec3(0.5f));
+
+				listOfQuadsWalled.push_back(mazeWalled);
+
+				listOfQuads.push_back(mazeWalled);
 			}
+			else
+			{
+				MazeQuad* mazePath = new MazeQuad(false);
+
+				mazePath->type = PATHWAY;
+
+				mazePath->transform.SetPosition(glm::vec3(-j - 1, -i - 1, 0));
+				mazePath->transform.SetScale(glm::vec3(0.5f));
+
+				listOfQuadsPathWay.push_back(mazePath);
+
+				listOfQuads.push_back(mazePath);
+			}
+
+
 		}
 	}
 

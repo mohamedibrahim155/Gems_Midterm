@@ -5,6 +5,7 @@
 #include <fstream>
 #include<vector>
 #include "../DebugModels.h"
+#include "MazeQuad.h"
 
 
 
@@ -14,28 +15,19 @@ public:
 	Maze();
 	~Maze();
 
-
-
-
-	std::vector<std::vector<int>> mazeValue;
-
-	std::vector<std::vector<char>> maze;
+	std::vector<MazeQuad*> listOfQuads;
+	std::vector<MazeQuad*> listOfQuadsWalled;
+	std::vector<MazeQuad*> listOfQuadsPathWay;
 
 
 	bool ReadMazeFile(std::string mazeFile);
-	bool GenerateMazeValue(std::vector<std::vector<char>>& maze);
-
-	bool IsWall(char& value);
-
-	bool GenerateMazeMesh();
-
-
-
-
-    // Read characters one by one and store them in the vector
-   
+	bool IsWall(int x, int y);
 
 private:
+	std::vector<std::vector<int>> mazeValue;
+	std::vector<std::vector<char>> maze;
 
+	bool GenerateMazeValue(std::vector<std::vector<char>>& maze);
+	bool GenerateMazeMesh();
 };
 

@@ -145,6 +145,7 @@
     <ClCompile Include="Extern\imGui\ImGradient.cpp" />
     <ClCompile Include="Extern\imGui\ImGuizmo.cpp" />
     <ClCompile Include="Extern\imGui\ImSequencer.cpp" />
+    <ClCompile Include="src\Maze\MazeQuad.cpp" />
     <ClCompile Include="src\Maze\Maze.cpp" />
     <ClCompile Include="src\Physics\SoftBody\SoftbodyObject.cpp" />
     <ClCompile Include="src\Math.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="src\UnLitMaterial.cpp" />
     <ClCompile Include="src\ImGui\WindowDockingPanel.cpp" />
     <ClCompile Include="src\ImGui\ToolPanel.cpp" />
+    <ClCompile Include="src\Maze\Treasure\Treasure.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
@@ -220,6 +222,7 @@
     <ClInclude Include="Extern\imGui\ImGuizmo.h" />
     <ClInclude Include="Extern\imGui\ImSequencer.h" />
     <ClInclude Include="Extern\imGui\ImZoomSlider.h" />
+    <ClInclude Include="src\Maze\MazeQuad.h" />
     <ClInclude Include="src\Maze\Maze.h" />
     <ClInclude Include="src\Physics\SoftBody\Point.h" />
     <ClInclude Include="src\Physics\SoftBody\SoftbodyObject.h" />
@@ -299,6 +302,7 @@
     <ClInclude Include="src\UnLitMaterial.h" />
     <ClInclude Include="src\ImGui\WindowDockingPanel.h" />
     <ClInclude Include="src\ImGui\ToolPanel.h" />
+    <ClInclude Include="src\Maze\Treasure\Treasure.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\color.frag" />
