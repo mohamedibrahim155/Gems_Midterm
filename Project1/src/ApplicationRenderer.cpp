@@ -126,10 +126,10 @@ void ApplicationRenderer::WindowInitialize(int width, int height, std::string wi
     GraphicsRender::GetInstance().SetCamera(sceneViewcamera);
 
     sceneViewcamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
-    sceneViewcamera->transform.position = glm::vec3(0, 0, -10.0f);
+    sceneViewcamera->transform.position = glm::vec3(-58.23f, -75.61f, -183.30f);
 
     gameScenecamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
-    gameScenecamera->transform.position = glm::vec3(0, 0, -10.0f);
+    gameScenecamera->transform.position = glm::vec3(-58.23f, -75.61f, -183.30f);
 
     renderTextureCamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
     renderTextureCamera->transform.position = glm::vec3(0, 0, -10.0f);
@@ -176,12 +176,12 @@ void ApplicationRenderer::InitializeSkybox()
 
     std::vector<std::string> faces
     {
-       ("Textures/skybox/right.jpg"),
-       ("Textures/skybox/left.jpg"),
-       ("Textures/skybox/top.jpg"),
-       ("Textures/skybox/bottom.jpg"),
-       ("Textures/skybox/front.jpg"),
-       ("Textures/skybox/back.jpg")
+       ("Textures/DefaultTextures/Default_Specular.jpg"),
+       ("Textures/DefaultTextures/Default_Specular.jpg"),
+       ("Textures/DefaultTextures/Default_Specular.jpg"),
+       ("Textures/DefaultTextures/Default_Specular.jpg"),
+       ("Textures/DefaultTextures/Default_Specular.jpg"),
+       ("Textures/DefaultTextures/Default_Specular.jpg")
     };
 
     skyBoxMaterial->skyBoxTexture->LoadTexture(faces);
@@ -212,69 +212,6 @@ void ApplicationRenderer::Start()
     directionLight->transform.SetRotation(glm::vec3(0, -130, 0));
     directionLight->transform.SetScale(glm::vec3(0.2));
 
-
-
-
-
-    PhysicsObject* ballPhysics = new PhysicsObject();
-    ballPhysics->name = "BallPhysics";
-    ballPhysics->LoadModel(*(DebugModels::GetInstance().defaultSphere));
-    ballPhysics->transform.SetPosition(glm::vec3(0, -1, 0));
-    ballPhysics->transform.SetScale(glm::vec3(0.25f));
-    GraphicsRender::GetInstance().AddModelAndShader(ballPhysics, defaultShader);
-
-    ballPhysics->Initialize(SPHERE, true, STATIC);
-
-
-    PhysicsObject* floor = new PhysicsObject();
-    floor->name = "Floor Physics";
-    floor->LoadModel("Models/Floor/Floor.fbx");
-    floor->transform.SetRotation(glm::vec3(90, 0, 0));
-    floor->transform.SetPosition(glm::vec3(0, -2, 0));
-
-    GraphicsRender::GetInstance().AddModelAndShader(floor, defaultShader);
-    floor->Initialize(AABB, true, STATIC);
-
-    //Model* chain
-
-
-    SoftbodyObject* softBodyTest1 = new SoftbodyObject();
-    softBodyTest1->name = "SoftbodySphere1";
-   // softBodyTest1->LoadModel("Models/Plane/Plane.ply");
-    softBodyTest1->LoadModel("Models/Chain/Chain.fbx");
-    //softBodyTest1->LoadModel("Models/DefaultCube/DefaultCube.fbx");
-    softBodyTest1->transform.SetPosition(glm::vec3(0, 1, 0));
-    //softBodyTest1->transform.SetPosition(glm::vec3(0, 1, 0));
-    //softBodyTest1->transform.SetScale(glm::vec3(5));
-    softBodyTest1->transform.SetScale(glm::vec3(0.25f));
-    GraphicsRender::GetInstance().AddModelAndShader(softBodyTest1, defaultShader);
-    softBodyTest1->updateAABBTest = ballPhysics;
-    softBodyTest1->type = BodyType::SPRING;
-    softBodyTest1->Initialize();
-    
-    softBodyTest1->AddLockSphere(glm::vec3(0.00192526f, 0.991442f, -0.00474217f), 0.08f);
-
-
-    SoftbodyObject* softBodyTest2 = new SoftbodyObject();
-    softBodyTest2->name = "SoftbodySphere1";
-    // softBodyTest2->LoadModel("Models/Plane/Plane.ply");
-    softBodyTest2->LoadModel("Models/Chain/Chain.fbx");
-    //softBodyTest2->LoadModel("Models/DefaultCube/DefaultCube.fbx");
-    softBodyTest1->transform.SetPosition(glm::vec3(0, 4, 0));
-    //softBodyTest2->transform.SetPosition(glm::vec3(0, 1, 0));
-    //softBodyTest2->transform.SetScale(glm::vec3(5));
-    softBodyTest2->transform.SetScale(glm::vec3(0.25f));
-    GraphicsRender::GetInstance().AddModelAndShader(softBodyTest2, defaultShader);
-    softBodyTest2->updateAABBTest = ballPhysics;
-    softBodyTest2->type = BodyType::SPRING;
-    softBodyTest2->Initialize();
-
-    softBodyTest2->AddLockSphere(glm::vec3(0.00192526f, 0.991442f+4, -0.00474217f), 0.08f);
-
-  //  0.00192526, 0.991442, -0.00474217
-    StartThreads* summatest = new StartThreads();
-
-  //  applicationThread->isThreadActive = true;
 
     Maze* maze = new Maze();
 

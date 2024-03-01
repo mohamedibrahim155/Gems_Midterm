@@ -5,21 +5,8 @@
 #include <fstream>
 #include<vector>
 #include "../DebugModels.h"
-enum PathType
-{
-	WALL = 0,  //X
-	PATHWAY = 1,  //.
-	EMPTY = 2      // EXIT OR ENTERANCE
-};
 
-struct MazeNode
-{
-	MazeNode() {};
-	//int id;
-	int row;
-	int column;
-	PathType pathType;
-};
+
 
 class Maze
 {
@@ -34,7 +21,6 @@ public:
 
 	std::vector<std::vector<char>> maze;
 
-	std::vector<MazeNode*> nodeList;
 
 	bool ReadMazeFile(std::string mazeFile);
 	bool GenerateMazeValue(std::vector<std::vector<char>>& maze);

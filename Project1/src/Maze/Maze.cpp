@@ -31,43 +31,31 @@ bool Maze::ReadMazeFile(std::string mazeFile)
 		}
 		else 
 		{
-			if (ch=='X')
-			{
-
-			}
-			else if(ch == '.')
-			{
-
-			}
 			row.push_back(ch);
 		}
 	}
 
+	if (!row.empty())   // adding last line
+	{
+		maze.push_back(row);
+	}
 	inputFile.close();
 
 
-	for (size_t i = 0; i < maze.size(); i++)
-	{
-		for (int j =0 ;  j< maze[i].size(); j++)
-		{
-			std::cout << ch;
 
-			
-		}
-	}
-	/*for (const std::vector<char>& row : maze)
-	{
-		for (char ch : row) 
-		{
-			std::cout << ch;
+	//for (const std::vector<char>& row : maze)
+	//{
+	//	for (char ch : row) 
+	//	{
+	//		std::cout << ch;
 
-			if (IsWall(ch))
-			{
+	//		if (IsWall(ch))
+	//		{
 
-			}
-		}
-		std::cout << std::endl;
-	}*/
+	//		}
+	//	}
+	//	std::cout << std::endl;
+	//}
 	GenerateMazeValue(maze);
 	if (!GenerateMazeMesh())
 	{
@@ -130,7 +118,7 @@ bool Maze::GenerateMazeMesh()
 			{
 				Model* cube = new Model(*DebugModels::GetInstance().defaultQuad, true);
 
-				cube->transform.SetPosition(glm::vec3(-j, -i, 0));
+				cube->transform.SetPosition(glm::vec3(-j-1, -i-1, 0));
 				cube->transform.SetScale(glm::vec3(0.5f));
 
 				GraphicsRender::GetInstance().AddModelAndShader(cube, GraphicsRender::GetInstance().solidColorShader);
