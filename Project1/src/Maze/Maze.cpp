@@ -174,7 +174,7 @@ bool Maze::GenerateMazeMesh()
 				mazeWalled->name = "WALL_" + std::to_string(i) + "_" + std::to_string(j);
 				mazeWalled->type = WALL;
 
-				mazeWalled->transform.SetPosition(glm::vec3(-j - 1, -i - 1, 0));
+				mazeWalled->transform.SetPosition(glm::vec3(-j, -i, 0));
 				mazeWalled->transform.SetScale(glm::vec3(0.5f));
 
 				listOfQuadsWalled.push_back(mazeWalled);

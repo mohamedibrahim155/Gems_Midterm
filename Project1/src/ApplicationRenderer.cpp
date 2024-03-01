@@ -222,9 +222,8 @@ void ApplicationRenderer::Start()
 
     MazeManager::GetInstance().GenerateTreasures(250);
 
-    Hunter* firstHunter = MazeManager::GetInstance().CreateHunter(-11, -146);
+    Hunter* firstHunter = new Hunter();
 
-    glm::vec3 moveNewLocation = MazeManager::GetInstance().GetARandomMovePosition(firstHunter);
 
     //firstHunter->transform.SetPosition(moveNewLocation);
 

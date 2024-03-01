@@ -1,9 +1,12 @@
 #include "Hunter.h"
 #include "../../GraphicsRender.h"
 #include "../../DebugModels.h"
-#include"../Maze.h"
 Hunter::Hunter()
 {
+	//mazeManager = &MazeManager::GetInstance();
+
+	name = "Hunter";
+
 	LoadModel(*DebugModels::GetInstance().defaultQuad);
 	meshes[0]->meshMaterial->unLitMaterial()->SetBaseColor(glm::vec4(1, 0, 0, 1));
 
@@ -36,10 +39,11 @@ void Hunter::MovePosition(int x, int y)
 	transform.SetPosition(glm::vec3((float)x, (float)y, 0));
 }
 
-void Hunter::SetMaze(Maze* maze)
+void Hunter::MovePosition(glm::vec3 position)
 {
-	this->maze = maze;
+	transform.SetPosition(position);
 }
+
 
 
 
@@ -55,10 +59,23 @@ void Hunter::SceneDraw()
 
 void Hunter::Start()
 {
+	MovePosition(intialPosition.x, intialPosition.y);
 }
 
 void Hunter::Update(float deltaTime)
 {
+//	if (timer >= interval)
+	{
+	//	timer = 0;
+
+		glm::vec3 randomPosition = MazeManager::GetInstance().GetARandomMovePosition(transform.position);
+
+		MovePosition(randomPosition);
+	}
+	//else
+	//{
+	//	timer += deltaTime;
+	//}
 }
 
 void Hunter::Render()

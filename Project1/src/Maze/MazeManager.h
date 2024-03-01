@@ -2,7 +2,6 @@
 #include "../Maze/Maze.h"
 #include "../Maze/MazeQuad.h"
 #include "Treasure/Treasure.h"
-#include  "Hunter/Hunter.h"
 
 enum class Direction
 {
@@ -18,13 +17,13 @@ public:
 	static MazeManager& GetInstance();
 
 	std::vector<Treasure*> listOfTreasures;
-	std::vector<Hunter*> listOfHunters;
+	//std::vector<Hunter*> listOfHunters;
 
 	bool IsTreasureOccupied(int x, int y);
 
 	
 
-	Hunter* CreateHunter(int x, int y);
+	//Hunter* CreateHunter(int x, int y);
 	glm::vec3 GetARandomMovePosition(glm::vec3& hunterPosition);
 
 	int GetRandomDirection(glm::vec3 position);

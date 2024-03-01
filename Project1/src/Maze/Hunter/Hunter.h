@@ -1,7 +1,9 @@
 #pragma once
 #include"../../model.h"
+#include "../MazeManager.h"
 
-class Maze;
+
+
 enum  eHunterState
 {
     SEARCHING = 0,
@@ -22,8 +24,9 @@ public:
 
 
     void SetTreasureTarget(int x, int y);
+
     void MovePosition(int x, int y);
-    void SetMaze(Maze* maze);
+    void MovePosition(glm::vec3 position);
     
     void DrawProperties()override;
     void SceneDraw()override;
@@ -36,6 +39,13 @@ public:
 private:
 
     glm::vec3 targetPosition;
-    Maze* maze;
+
+
+    float timer = 0;
+    float interval = 2;
+
+  //  MazeManager* mazeManager = nullptr;
+
+
 };
 

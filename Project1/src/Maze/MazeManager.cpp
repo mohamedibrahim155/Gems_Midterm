@@ -49,26 +49,26 @@ void MazeManager::GenerateTreasures(int treasureCount)
 	}
 }
 
-Hunter* MazeManager::CreateHunter(int x, int y)
-{
-
-	if (!maze->IsWall(x,y))
-	{
-
-		Hunter* hunter = new Hunter();
-
-		hunter->SetMaze(maze);
-
-		hunter->MovePosition(x, y);
-
-		listOfHunters.push_back(hunter);
-
-		return hunter;
-
-	}
-
-	return nullptr;
-}
+//Hunter* MazeManager::CreateHunter(int x, int y)
+//{
+//
+//	if (!maze->IsWall(x,y))
+//	{
+//
+//		Hunter* hunter = new Hunter();
+//
+//		hunter->SetMaze(maze);
+//
+//		hunter->MovePosition(x, y);
+//
+//		listOfHunters.push_back(hunter);
+//
+//		return hunter;
+//
+//	}
+//
+//	return nullptr;
+//}
 
 
 glm::vec3 MazeManager::GetARandomMovePosition(glm::vec3& hunterPosition)
@@ -77,10 +77,11 @@ glm::vec3 MazeManager::GetARandomMovePosition(glm::vec3& hunterPosition)
 
 	int randomDir = GetRandomDirection(hunterPos);
 
-	while (randomDir < 0) //  if direction -1 , finding again new dir
+	while (randomDir == -1)
 	{
 		randomDir = GetRandomDirection(hunterPos);
 	}
+	
 
 	Direction type = (Direction)randomDir;
 
@@ -117,7 +118,8 @@ glm::vec3 MazeManager::GetARandomMovePosition(glm::vec3& hunterPosition)
 
 int MazeManager::GetRandomDirection(glm::vec3 position)
 {
-	int randomDir = Math::GetRandomIntNumber(0, 3);
+	//int randomDir = Math::GetRandomIntNumber(0, 3);
+	int randomDir = rand() % 4;
 
 	
 
@@ -127,7 +129,7 @@ int MazeManager::GetRandomDirection(glm::vec3 position)
 	{
 	case Direction::UP:
 
-		if (!maze->IsWall(position.x, position.y + 1))
+		if (!maze->IsWall(position.x, position.y + 1) )
 		{
 			return randomDir;
 		}
