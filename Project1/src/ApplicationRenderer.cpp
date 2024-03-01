@@ -275,6 +275,10 @@ void ApplicationRenderer::Start()
     StartThreads* summatest = new StartThreads();
 
     applicationThread->isThreadActive = true;
+
+    Maze* maze = new Maze();
+
+    maze->ReadMazeFile("Maze/MAZE.txt");
 }
 
 void ApplicationRenderer::PreRender()
