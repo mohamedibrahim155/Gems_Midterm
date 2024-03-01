@@ -203,4 +203,8 @@ void Maze::GenerateRandomTreasure(int treasureCount)
 		listOfTreasures.push_back(treasure);
 
 	}
+
+	Hunter* firstHunter = new Hunter();
+
+	firstHunter->transform.SetPosition(firstHunter->intialPosition);
 }

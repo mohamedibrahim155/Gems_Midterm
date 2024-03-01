@@ -4,7 +4,7 @@
 #include "../Maze.h"
 Treasure::Treasure()
 {
-	LoadModel(*DebugModels::GetInstance().defaultQuad);
+	LoadModel(*DebugModels::GetInstance().defaultQuad, true);
 	GraphicsRender::GetInstance().AddModelAndShader(this, GraphicsRender::GetInstance().stencilShader);
 	
 	//meshes[0]->meshMaterial->unLitMaterial()->SetBaseColor(glm::vec4(1, 1, 0, 1));

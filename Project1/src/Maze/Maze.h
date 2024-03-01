@@ -7,7 +7,7 @@
 #include "../DebugModels.h"
 #include "MazeQuad.h"
 #include"../Maze/Treasure/Treasure.h"
-
+#include "Hunter/Hunter.h"
 
 class Maze
 {
@@ -29,6 +29,7 @@ private:
 	std::vector<std::vector<int>> mazeValue;
 	std::vector<std::vector<char>> maze;
 	std::vector<Treasure*> listOfTreasures;
+	std::vector<Hunter*> listOfHunters;
 
 
 	bool GenerateMazeValue(std::vector<std::vector<char>>& maze);
