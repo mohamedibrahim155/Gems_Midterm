@@ -125,13 +125,13 @@ void ApplicationRenderer::WindowInitialize(int width, int height, std::string wi
 
     GraphicsRender::GetInstance().SetCamera(sceneViewcamera);
 
-    sceneViewcamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 100.0f);
+    sceneViewcamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
     sceneViewcamera->transform.position = glm::vec3(0, 0, -10.0f);
 
-    gameScenecamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 100.0f);
+    gameScenecamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
     gameScenecamera->transform.position = glm::vec3(0, 0, -10.0f);
 
-    renderTextureCamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 100.0f);
+    renderTextureCamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
     renderTextureCamera->transform.position = glm::vec3(0, 0, -10.0f);
 
     renderTextureCamera->IntializeRenderTexture(specification);
@@ -193,7 +193,7 @@ void ApplicationRenderer::InitializeSkybox()
 
 void ApplicationRenderer::Start()
 {
-    InitializeApplicationThread(0.01);
+   // InitializeApplicationThread(0.01);
 
     sceneViewcamera->postprocessing->InitializePostProcessing();
 
@@ -274,11 +274,14 @@ void ApplicationRenderer::Start()
   //  0.00192526, 0.991442, -0.00474217
     StartThreads* summatest = new StartThreads();
 
-    applicationThread->isThreadActive = true;
+  //  applicationThread->isThreadActive = true;
 
     Maze* maze = new Maze();
 
     maze->ReadMazeFile("Maze/MAZE.txt");
+
+
+
 }
 
 void ApplicationRenderer::PreRender()
@@ -358,9 +361,9 @@ void ApplicationRenderer::Render()
 
         EngineGameLoop();
 
-        EnterCriticalSection(&applicationThread->cs);
-        applicationThread->physicsEngine->UpdateSoftBodiesVertices();
-        LeaveCriticalSection(&applicationThread->cs);
+       // EnterCriticalSection(&applicationThread->cs);
+       // applicationThread->physicsEngine->UpdateSoftBodiesVertices();
+       // LeaveCriticalSection(&applicationThread->cs);
 
         EngineGraphicsRender();
 
@@ -540,7 +543,7 @@ void ApplicationRenderer::PostRender()
 
     if (isPlayMode)
     {
-      //  PhysicsEngine::GetInstance().Update(Time::GetInstance().deltaTime);
+        PhysicsEngine::GetInstance().Update(Time::GetInstance().deltaTime);
     }
 }
 

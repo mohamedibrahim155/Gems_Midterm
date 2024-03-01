@@ -4,7 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include<vector>
-
+#include "../DebugModels.h"
 enum PathType
 {
 	WALL = 0,  //X
@@ -38,6 +38,10 @@ public:
 
 	bool ReadMazeFile(std::string mazeFile);
 	bool GenerateMazeValue(std::vector<std::vector<char>>& maze);
+
+	bool IsWall(char& value);
+
+	bool GenerateMazeMesh();
 
 
 
