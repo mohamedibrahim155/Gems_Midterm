@@ -218,7 +218,7 @@ void ApplicationRenderer::Start()
     maze->ReadMazeFile("Maze/MAZE.txt");
 
 
-
+    maze->GenerateRandomTreasure(250);
 }
 
 void ApplicationRenderer::PreRender()

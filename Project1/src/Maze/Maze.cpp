@@ -1,5 +1,9 @@
 #include "Maze.h"
 #include"../GraphicsRender.h"
+#include "../Math.h"
+
+using namespace MathUtils;
+
 Maze::Maze()
 {
 }
@@ -122,7 +126,7 @@ bool Maze::GenerateMazeMesh()
 			if (maze[i][j] == 'X')
 			{
 				MazeQuad* mazeWalled = new MazeQuad(true);
-
+				mazeWalled->name = "WALL_" + std::to_string(i) + "_" + std::to_string(j);
 				mazeWalled->type = WALL;
 
 				mazeWalled->transform.SetPosition(glm::vec3(-j - 1, -i - 1, 0));
@@ -137,8 +141,9 @@ bool Maze::GenerateMazeMesh()
 				MazeQuad* mazePath = new MazeQuad(false);
 
 				mazePath->type = PATHWAY;
+				mazePath->name = "WAY_" + std::to_string(i) + "_" + std::to_string(j);
 
-				mazePath->transform.SetPosition(glm::vec3(-j - 1, -i - 1, 0));
+				mazePath->transform.SetPosition(glm::vec3(-j, -i, 0));
 				mazePath->transform.SetScale(glm::vec3(0.5f));
 
 				listOfQuadsPathWay.push_back(mazePath);
@@ -151,4 +156,51 @@ bool Maze::GenerateMazeMesh()
 	}
 
 	return true;
+}
+
+bool Maze::IsTreasureOccupied(int x, int y)
+{
+	for (Treasure* treasure  : listOfTreasures)
+	{
+		if (treasure->GetPosition().x  == x && treasure->GetPosition().y)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void Maze::GenerateRandomTreasure(int treasureCount)
+{
+
+	int mazeValueJ = maze[0].size() - 1;
+	int mazeValueI = maze.size() - 1;
+
+
+	for (int index = 0; index < treasureCount; index++)
+	{
+		
+		Treasure* treasure = new Treasure();
+		treasure->name = "Treasure_" + std::to_string(index);
+		treasure->SetMaze(this);
+		treasure->transform.SetScale(glm::vec3(0.5f));
+
+
+		int j = Math::GetRandomIntNumber(-mazeValueJ, -1);
+
+		int i = Math::GetRandomIntNumber(-mazeValueI, -1);
+		std::cout << "maze value x" << i << " , " << j << std::endl;
+		do
+		{
+			j = Math::GetRandomIntNumber(-mazeValueJ, -1);
+
+			i = Math::GetRandomIntNumber(-mazeValueI, -1);
+
+		} while (!IsWall(j,i) && !IsTreasureOccupied(j, i));
+
+		treasure->SetPosition(j, i);
+
+		listOfTreasures.push_back(treasure);
+
+	}
 }
