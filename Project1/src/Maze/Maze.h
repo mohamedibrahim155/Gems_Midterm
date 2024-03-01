@@ -31,6 +31,7 @@ public:
 	MazeQuad* GetWallAt(int x, int y);
 	MazeQuad* GetQuadAt(int x, int y);
 
+	 PathFinding* getPathfinding() const;
 private:
 	std::vector<std::vector<int>> mazeValue;
 	//std::vector<Treasure*> listOfTreasures;

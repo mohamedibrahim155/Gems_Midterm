@@ -27,6 +27,7 @@ public:
 
 	//Hunter* CreateHunter(int x, int y);
 	glm::vec3 GetARandomMovePosition(glm::vec3& hunterPosition);
+	std::vector<glm::vec3> GetPoints(glm::vec3& hunterPosition);
 
 	int GetRandomDirection(glm::vec3 position);
 

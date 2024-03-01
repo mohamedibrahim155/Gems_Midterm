@@ -221,14 +221,16 @@ void ApplicationRenderer::Start()
 
     MazeManager::GetInstance().SetMaze(maze);
 
+   
+
     MazeManager::GetInstance().GenerateTreasures(250);
 
-    //Hunter* firstHunter = new Hunter();
+    Hunter* firstHunter = new Hunter();
 
 
     //firstHunter->transform.SetPosition(moveNewLocation);
     
-    hunterThread->isThreadActive = true;
+   // hunterThread->isThreadActive = true;
 }
 
 void ApplicationRenderer::PreRender()
@@ -326,11 +328,11 @@ void ApplicationRenderer::Render()
     DeleteCriticalSection(&applicationThread->cs);
     
 
-    hunterThread->isThreadActive = false;
-    hunterThread->isActive = false;
-    WaitForSingleObject(hunterThread->threadHandle, INFINITE);
-    CloseHandle(hunterThread->threadHandle);
-    DeleteCriticalSection(&hunterThread->cs);
+   // hunterThread->isThreadActive = false;
+   // hunterThread->isActive = false;
+   // WaitForSingleObject(hunterThread->threadHandle, INFINITE);
+   // CloseHandle(hunterThread->threadHandle);
+   // DeleteCriticalSection(&hunterThread->cs);
 
 
     ImGui_ImplOpenGL3_Shutdown();

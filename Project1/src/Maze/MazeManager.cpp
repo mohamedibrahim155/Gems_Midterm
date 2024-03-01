@@ -141,6 +141,22 @@ glm::vec3 MazeManager::GetARandomMovePosition(glm::vec3& hunterPosition)
 	//return glm::vec3(0);
 }
 
+std::vector<glm::vec3>  MazeManager::GetPoints(glm::vec3& hunterPosition)
+{
+	glm::vec2 hunterpos = glm::vec2(hunterPosition.y, hunterPosition.x) * -1.0f;
+	glm::vec2 end = glm::vec2(142, 25);
+	std::pair<int, std::vector<glm::vec2>> mazePoints = maze->getPathfinding()->PathPoints(hunterpos, end);
+
+	std::vector<glm::vec3> positionToTravel;
+
+	for (size_t i = 0; i < mazePoints.second.size(); i++)
+	{
+		positionToTravel.push_back(glm::vec3(-mazePoints.second[i].y, -mazePoints.second[i].x, 0));
+	}
+
+	return positionToTravel;
+}
+
 int MazeManager::GetRandomDirection(glm::vec3 position)
 {
 	//int randomDir = Math::GetRandomIntNumber(0, 3);

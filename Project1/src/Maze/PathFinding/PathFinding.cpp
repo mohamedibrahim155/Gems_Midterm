@@ -2,7 +2,7 @@
 #include <fstream>
 #include <algorithm>
 
-PathFinding::PathFinding()
+PathFinding::PathFinding() :row(0),column(0)
 {
 }
 

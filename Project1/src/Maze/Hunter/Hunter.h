@@ -44,9 +44,12 @@ private:
 
 
     float timer = 0;
-    float interval = 2;
+    float interval = 0.2f;
 
+    std::vector<glm::vec3 > positions;
 
+    int iteration = 0;
 
+    bool isReached = false;
 };
 

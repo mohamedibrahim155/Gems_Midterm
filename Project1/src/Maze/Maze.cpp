@@ -69,28 +69,6 @@ bool Maze::ReadMazeFile(std::string mazeFile)
 
 	pathFinding->GenerateGrid(mazeFile);
 
-	/*glm::vec2 start = glm::vec2(146, 11.0f);
-	glm::vec2 end = glm::vec2(142, 25);
-
-	std::pair<int, std::vector<glm::vec2>> points =
-		pathFinding->PathPoints(start, end);
-
-	std::cout << "Size of points :" << points.first << std::endl;
-
-	for (size_t i = 0; i < points.first; i++)
-	{
-		for (size_t j = 0; j < points.second.size(); j++)
-		{
-			MazeQuad* quad = new MazeQuad(true);
-			quad->name = "WALL_" + std::to_string(i) + "_" + std::to_string(j);
-			quad->transform.SetScale(glm::vec3(0.5f));
-
-			quad->transform.SetPosition(glm::vec3(-points.second[j].y, -points.second[j].x, 0));
-		}
-		
-
-	}*/
-
 	GenerateMazeValue(maze);
 	if (!GenerateMazeMesh())
 	{
@@ -188,6 +166,11 @@ MazeQuad* Maze::GetQuadAt(int x, int y)
 		}
 	}
 	return temp;
+}
+
+ PathFinding* Maze::getPathfinding() const
+{
+	return pathFinding;
 }
 
 bool Maze::GenerateMazeMesh()

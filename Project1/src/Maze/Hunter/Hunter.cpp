@@ -61,22 +61,34 @@ void Hunter::SceneDraw()
 void Hunter::Start()
 {
 	MovePosition(intialPosition.x, intialPosition.y);
+
+	positions = MazeManager::GetInstance().GetPoints(intialPosition);
 }
 
 void Hunter::Update(float deltaTime)
 {
-//	if (timer >= interval)
+	if (timer >= interval)
 	{
-	//	timer = 0;
+		timer = 0;
 
-		glm::vec3 randomPosition = MazeManager::GetInstance().GetARandomMovePosition(transform.position);
+		//glm::vec3 randomPosition = MazeManager::GetInstance().GetARandomMovePosition(transform.position);
 
-		MovePosition(randomPosition);
+		if (!isReached)
+		{
+			MovePosition(positions[iteration]);
+			iteration++;
+
+			if (iteration>= positions.size())
+			{
+				isReached = true;
+			}
+		}
+
 	}
-	//else
-	//{
-	//	timer += deltaTime;
-	//}
+	else
+	{
+		timer += deltaTime;
+	}
 }
 
 void Hunter::Render()
@@ -94,9 +106,9 @@ void Hunter::UpdateHunterPosition(float deltaTime)
 {
 	if (mazeController)
 	{
-		glm::vec3 randomPosition = mazeController->GetARandomMovePosition(transform.position);
+		//glm::vec3 randomPosition = mazeController->GetARandomMovePosition(transform.position);
 
-		MovePosition(randomPosition);
+		//MovePosition(randomPosition);
 	}
 	
 }
