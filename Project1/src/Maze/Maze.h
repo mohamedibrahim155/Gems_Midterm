@@ -8,7 +8,7 @@
 #include "MazeQuad.h"
 #include"../Maze/Treasure/Treasure.h"
 #include "Hunter/Hunter.h"
-
+#include "PathFinding/PathFinding.h"
 class Maze
 {
 public:
@@ -39,6 +39,7 @@ private:
 	bool GenerateMazeValue(std::vector<std::vector<char>>& maze);
 	bool GenerateMazeMesh();
 	//bool IsTreasureOccupied(int x, int y);
+	PathFinding* pathFinding;
 
 };
 

@@ -145,6 +145,7 @@
     <ClCompile Include="Extern\imGui\ImGradient.cpp" />
     <ClCompile Include="Extern\imGui\ImGuizmo.cpp" />
     <ClCompile Include="Extern\imGui\ImSequencer.cpp" />
+    <ClCompile Include="src\Maze\PathFinding\PathFinding.cpp" />
     <ClCompile Include="src\Maze\MazeManager.cpp" />
     <ClCompile Include="src\Maze\Hunter\Hunter.cpp" />
     <ClCompile Include="src\Maze\MazeQuad.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="Extern\imGui\ImGuizmo.h" />
     <ClInclude Include="Extern\imGui\ImSequencer.h" />
     <ClInclude Include="Extern\imGui\ImZoomSlider.h" />
+    <ClInclude Include="src\Maze\PathFinding\PathFinding.h" />
     <ClInclude Include="src\Maze\MazeManager.h" />
     <ClInclude Include="src\Maze\Hunter\Hunter.h" />
     <ClInclude Include="src\Maze\MazeQuad.h" />

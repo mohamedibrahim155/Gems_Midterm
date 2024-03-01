@@ -213,7 +213,7 @@ void ApplicationRenderer::Start()
     directionLight->transform.SetRotation(glm::vec3(0, -130, 0));
     directionLight->transform.SetScale(glm::vec3(0.2));
 
-    IntializeHunterThread(0.01);
+  //  IntializeHunterThread(0.01);
 
     Maze* maze = new Maze();
 
