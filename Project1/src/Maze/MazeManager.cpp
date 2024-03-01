@@ -17,8 +17,8 @@ void MazeManager::SetMaze(Maze* maze)
 
 void MazeManager::GenerateTreasures(int treasureCount)
 {
-	int mazeValueJ = maze->maze[0].size() - 1;
-	int mazeValueI = maze->maze.size() - 1;
+	int mazeValueJ = (maze->maze[0].size() - 1) * -1;
+	int mazeValueI = (maze->maze.size() - 1) * -1;
 
 
 	for (int index = 0; index < treasureCount; index++)
@@ -29,16 +29,33 @@ void MazeManager::GenerateTreasures(int treasureCount)
 		treasure->SetMaze(maze);
 		treasure->transform.SetScale(glm::vec3(0.5f));
 
+		int min = mazeValueJ;
+		int max = -1;
 
-		int j = Math::GetRandomIntNumber(-mazeValueJ, -1);
+		int randomNumber = min + std::rand() % (max - min + 1);
+		//int j = Math::GetRandomIntNumber(-mazeValueJ, -1);
+		int j = randomNumber;
+		min = mazeValueI;
 
-		int i = Math::GetRandomIntNumber(-mazeValueI, -1);
+		randomNumber = min + std::rand() % (max - min + 1);
+		//int i = Math::GetRandomIntNumber(-mazeValueI, -1);
+		int i = randomNumber;
+
 		std::cout << "maze value x" << i << " , " << j << std::endl;
 		do
 		{
-			j = Math::GetRandomIntNumber(-mazeValueJ, -1);
+			//j = Math::GetRandomIntNumber(-mazeValueJ, -1);
 
-			i = Math::GetRandomIntNumber(-mazeValueI, -1);
+			randomNumber = mazeValueJ + std::rand() % (max - mazeValueJ + 1);
+
+			j = randomNumber;
+
+
+			//i = Math::GetRandomIntNumber(-mazeValueI, -1);
+
+			randomNumber = mazeValueI + std::rand() % (max - mazeValueI + 1);
+
+			i = randomNumber;
 
 		} while (!maze->IsWall(j, i) && !IsTreasureOccupied(j, i));
 
