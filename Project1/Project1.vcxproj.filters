@@ -243,6 +243,9 @@
     <ClCompile Include="src\Maze\Hunter\Hunter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Maze\MazeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -507,6 +510,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Maze\Hunter\Hunter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Maze\MazeManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

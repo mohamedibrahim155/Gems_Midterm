@@ -23,18 +23,22 @@ public:
 	bool ReadMazeFile(std::string mazeFile);
 	bool IsWall(int x, int y);
 
-	void GenerateRandomTreasure(int treasureCount);
+	//void GenerateRandomTreasure(int treasureCount);
+
+	std::vector<std::vector<char>> maze;
+
+	MazeQuad* GetPathWayAt(int x, int y);
+	MazeQuad* GetWallAt(int x, int y);
+	MazeQuad* GetQuadAt(int x, int y);
 
 private:
 	std::vector<std::vector<int>> mazeValue;
-	std::vector<std::vector<char>> maze;
-	std::vector<Treasure*> listOfTreasures;
-	std::vector<Hunter*> listOfHunters;
+	//std::vector<Treasure*> listOfTreasures;
 
 
 	bool GenerateMazeValue(std::vector<std::vector<char>>& maze);
 	bool GenerateMazeMesh();
-	bool IsTreasureOccupied(int x, int y);
+	//bool IsTreasureOccupied(int x, int y);
 
 };
 

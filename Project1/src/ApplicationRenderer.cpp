@@ -213,12 +213,21 @@ void ApplicationRenderer::Start()
     directionLight->transform.SetScale(glm::vec3(0.2));
 
 
+
     Maze* maze = new Maze();
 
     maze->ReadMazeFile("Maze/MAZE.txt");
 
+    MazeManager::GetInstance().SetMaze(maze);
 
-    maze->GenerateRandomTreasure(250);
+    MazeManager::GetInstance().GenerateTreasures(250);
+
+    Hunter* firstHunter = MazeManager::GetInstance().CreateHunter(-11, -146);
+
+    glm::vec3 moveNewLocation = MazeManager::GetInstance().GetARandomMovePosition(firstHunter);
+
+    //firstHunter->transform.SetPosition(moveNewLocation);
+
 }
 
 void ApplicationRenderer::PreRender()

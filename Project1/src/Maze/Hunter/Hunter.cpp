@@ -1,6 +1,7 @@
 #include "Hunter.h"
 #include "../../GraphicsRender.h"
 #include "../../DebugModels.h"
+#include"../Maze.h"
 Hunter::Hunter()
 {
 	LoadModel(*DebugModels::GetInstance().defaultQuad);
@@ -27,6 +28,20 @@ void Hunter::SetTreasureTarget(int x, int y)
 {
 	targetPosition = glm::vec3(x, y, 0);
 }
+
+void Hunter::MovePosition(int x, int y)
+{
+	//if (maze->IsWall(x, y)) return;
+
+	transform.SetPosition(glm::vec3((float)x, (float)y, 0));
+}
+
+void Hunter::SetMaze(Maze* maze)
+{
+	this->maze = maze;
+}
+
+
 
 void Hunter::DrawProperties()
 {

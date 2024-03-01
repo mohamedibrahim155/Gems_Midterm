@@ -105,13 +105,58 @@ bool Maze::IsWall(int x, int y)
 {
 	for (MazeQuad* quad : listOfQuadsWalled)
 	{
-		if (quad->GetPosition().x == x && quad->GetPosition().y)
+		if (quad->GetPosition().x == x && quad->GetPosition().y == y)
 		{
 			return true;
 		}
 	}
 
 	return false;
+}
+
+MazeQuad* Maze::GetPathWayAt(int x, int y)
+{
+	MazeQuad* temp = listOfQuadsPathWay[0];
+
+	for (MazeQuad* mazeQuad :  listOfQuadsPathWay)
+	{
+		if (mazeQuad->GetPosition().x == x && mazeQuad->GetPosition().y == y)
+		{
+			temp = mazeQuad;
+			return temp;
+		}
+	}
+	return temp;
+}
+
+MazeQuad* Maze::GetWallAt(int x, int y)
+{
+	MazeQuad* temp = listOfQuadsWalled[0];
+
+	for (MazeQuad* mazeQuad : listOfQuadsWalled)
+	{
+		if (mazeQuad->GetPosition().x == x && mazeQuad->GetPosition().y == y)
+		{
+			temp = mazeQuad;
+			return temp;
+		}
+	}
+	return temp;
+}
+
+MazeQuad* Maze::GetQuadAt(int x, int y)
+{
+	MazeQuad* temp = listOfQuads[0];
+
+	for (MazeQuad* mazeQuad : listOfQuads)
+	{
+		if (mazeQuad->GetPosition().x == x && mazeQuad->GetPosition().y == y)
+		{
+			temp = mazeQuad;
+			return temp;
+		}
+	}
+	return temp;
 }
 
 bool Maze::GenerateMazeMesh()
@@ -158,53 +203,53 @@ bool Maze::GenerateMazeMesh()
 	return true;
 }
 
-bool Maze::IsTreasureOccupied(int x, int y)
-{
-	for (Treasure* treasure  : listOfTreasures)
-	{
-		if (treasure->GetPosition().x  == x && treasure->GetPosition().y)
-		{
-			return true;
-		}
-	}
-	return false;
-}
+//bool Maze::IsTreasureOccupied(int x, int y)
+//{
+//	for (Treasure* treasure  : listOfTreasures)
+//	{
+//		if (treasure->GetPosition().x  == x && treasure->GetPosition().y)
+//		{
+//			return true;
+//		}
+//	}
+//	return false;
+//}
 
-void Maze::GenerateRandomTreasure(int treasureCount)
-{
-
-	int mazeValueJ = maze[0].size() - 1;
-	int mazeValueI = maze.size() - 1;
-
-
-	for (int index = 0; index < treasureCount; index++)
-	{
-		
-		Treasure* treasure = new Treasure();
-		treasure->name = "Treasure_" + std::to_string(index);
-		treasure->SetMaze(this);
-		treasure->transform.SetScale(glm::vec3(0.5f));
-
-
-		int j = Math::GetRandomIntNumber(-mazeValueJ, -1);
-
-		int i = Math::GetRandomIntNumber(-mazeValueI, -1);
-		std::cout << "maze value x" << i << " , " << j << std::endl;
-		do
-		{
-			j = Math::GetRandomIntNumber(-mazeValueJ, -1);
-
-			i = Math::GetRandomIntNumber(-mazeValueI, -1);
-
-		} while (!IsWall(j,i) && !IsTreasureOccupied(j, i));
-
-		treasure->SetPosition(j, i);
-
-		listOfTreasures.push_back(treasure);
-
-	}
-
-	Hunter* firstHunter = new Hunter();
-
-	firstHunter->transform.SetPosition(firstHunter->intialPosition);
-}
+//void Maze::GenerateRandomTreasure(int treasureCount)
+//{
+//
+//	int mazeValueJ = maze[0].size() - 1;
+//	int mazeValueI = maze.size() - 1;
+//
+//
+//	for (int index = 0; index < treasureCount; index++)
+//	{
+//		
+//		Treasure* treasure = new Treasure();
+//		treasure->name = "Treasure_" + std::to_string(index);
+//		treasure->SetMaze(this);
+//		treasure->transform.SetScale(glm::vec3(0.5f));
+//
+//
+//		int j = Math::GetRandomIntNumber(-mazeValueJ, -1);
+//
+//		int i = Math::GetRandomIntNumber(-mazeValueI, -1);
+//		std::cout << "maze value x" << i << " , " << j << std::endl;
+//		do
+//		{
+//			j = Math::GetRandomIntNumber(-mazeValueJ, -1);
+//
+//			i = Math::GetRandomIntNumber(-mazeValueI, -1);
+//
+//		} while (!IsWall(j,i) && !IsTreasureOccupied(j, i));
+//
+//		treasure->SetPosition(j, i);
+//
+//		listOfTreasures.push_back(treasure);
+//
+//	}
+//
+//	Hunter* firstHunter = new Hunter();
+//
+//	firstHunter->transform.SetPosition(firstHunter->intialPosition);
+//}

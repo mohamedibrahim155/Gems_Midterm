@@ -1,6 +1,7 @@
 #pragma once
 #include"../../model.h"
 
+class Maze;
 enum  eHunterState
 {
     SEARCHING = 0,
@@ -19,8 +20,10 @@ public:
     glm::vec3 GetPosition();
     glm::vec3 GetTargetPosition();
 
-    void SetTreasureTarget(int x, int y);
 
+    void SetTreasureTarget(int x, int y);
+    void MovePosition(int x, int y);
+    void SetMaze(Maze* maze);
     
     void DrawProperties()override;
     void SceneDraw()override;
@@ -33,5 +36,6 @@ public:
 private:
 
     glm::vec3 targetPosition;
+    Maze* maze;
 };
 

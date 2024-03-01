@@ -28,7 +28,8 @@
 #include "CameraManager.h"
 
 #include "Physics/PhysicsEngine.h"
-#include "Maze/Maze.h"
+#include "Maze/MazeManager.h"
+
 class ApplicationRenderer
 {
 public:
