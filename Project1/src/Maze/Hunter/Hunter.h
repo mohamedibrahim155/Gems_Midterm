@@ -1,8 +1,8 @@
 #pragma once
 #include"../../model.h"
-#include "../MazeManager.h"
 
 
+class MazeManager;
 
 enum  eHunterState
 {
@@ -21,6 +21,7 @@ public:
 
     glm::vec3 GetPosition();
     glm::vec3 GetTargetPosition();
+    MazeManager* mazeController;
 
 
     void SetTreasureTarget(int x, int y);
@@ -36,6 +37,7 @@ public:
     void Render()override;
     void OnDestroy()override;
 
+    void UpdateHunterPosition(float deltaTime);
 private:
 
     glm::vec3 targetPosition;
@@ -44,7 +46,6 @@ private:
     float timer = 0;
     float interval = 2;
 
-  //  MazeManager* mazeManager = nullptr;
 
 
 };

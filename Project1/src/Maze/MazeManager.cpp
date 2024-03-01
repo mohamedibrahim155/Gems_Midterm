@@ -3,6 +3,14 @@
 
 using namespace MathUtils;
 
+MazeManager::MazeManager()
+{
+}
+
+MazeManager::~MazeManager()
+{
+}
+
 MazeManager& MazeManager::GetInstance()
 {
     static MazeManager instance;

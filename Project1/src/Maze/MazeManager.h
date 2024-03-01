@@ -13,6 +13,8 @@ enum class Direction
 class MazeManager
 {
 public:
+	MazeManager();
+	~MazeManager();
 
 	static MazeManager& GetInstance();
 

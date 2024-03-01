@@ -1,6 +1,7 @@
 #include "Hunter.h"
 #include "../../GraphicsRender.h"
 #include "../../DebugModels.h"
+#include "../MazeManager.h"
 Hunter::Hunter()
 {
 	//mazeManager = &MazeManager::GetInstance();
@@ -87,4 +88,15 @@ void Hunter::Render()
 
 void Hunter::OnDestroy()
 {
+}
+
+void Hunter::UpdateHunterPosition(float deltaTime)
+{
+	if (mazeController)
+	{
+		glm::vec3 randomPosition = mazeController->GetARandomMovePosition(transform.position);
+
+		MovePosition(randomPosition);
+	}
+	
 }

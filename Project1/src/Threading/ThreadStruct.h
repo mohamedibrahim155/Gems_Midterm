@@ -4,7 +4,8 @@
 #include "ThreadManager.h"
 #include "../EntityManager/EntityManager.h"
 #include "../ImGui/PanelManager.h"
-
+#include "../Maze/MazeManager.h"
+#include "../Maze/Hunter/Hunter.h"
 
 struct ApplicationThread // SoftBody Struct Infor
 {
@@ -23,4 +24,18 @@ struct ApplicationThread // SoftBody Struct Infor
     HANDLE threadHandle = 0;
     CRITICAL_SECTION cs;
 
+};
+
+
+struct HunterThread
+{
+    Hunter* hunterObject;
+    MazeManager* mazeController;
+    double desiredUpdateTime = 1.0f/60.0f;
+    bool isThreadActive = false;
+    bool isActive = true;
+    DWORD ThreadId = 0;
+    DWORD sleepTime;
+    HANDLE threadHandle = 0;
+    CRITICAL_SECTION cs;
 };

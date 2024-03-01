@@ -19,6 +19,7 @@ ApplicationRenderer::~ApplicationRenderer()
 }
 
 ApplicationThread* applicationThread = applicationThreadExtern;
+HunterThread* hunterThread = hunterThreadExtern;
 
 void ApplicationRenderer::WindowInitialize(int width, int height, std::string windowName)
 {
@@ -212,7 +213,7 @@ void ApplicationRenderer::Start()
     directionLight->transform.SetRotation(glm::vec3(0, -130, 0));
     directionLight->transform.SetScale(glm::vec3(0.2));
 
-
+    IntializeHunterThread(0.01);
 
     Maze* maze = new Maze();
 
@@ -222,11 +223,12 @@ void ApplicationRenderer::Start()
 
     MazeManager::GetInstance().GenerateTreasures(250);
 
-    Hunter* firstHunter = new Hunter();
+    //Hunter* firstHunter = new Hunter();
 
 
     //firstHunter->transform.SetPosition(moveNewLocation);
-
+    
+    hunterThread->isThreadActive = true;
 }
 
 void ApplicationRenderer::PreRender()
@@ -323,6 +325,12 @@ void ApplicationRenderer::Render()
     CloseHandle(applicationThread->threadHandle);
     DeleteCriticalSection(&applicationThread->cs);
     
+
+    hunterThread->isThreadActive = false;
+    hunterThread->isActive = false;
+    WaitForSingleObject(hunterThread->threadHandle, INFINITE);
+    CloseHandle(hunterThread->threadHandle);
+    DeleteCriticalSection(&hunterThread->cs);
 
 
     ImGui_ImplOpenGL3_Shutdown();
