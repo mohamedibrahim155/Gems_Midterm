@@ -88,6 +88,7 @@ int MathUtils::Math::GetRandomIntNumber(int min, int max)
 }
 
 
+
 float MathUtils::Math::GetRandomFloatNumber(float min, float max) {
 	std::random_device rd;
 	std::mt19937 gen(rd());
