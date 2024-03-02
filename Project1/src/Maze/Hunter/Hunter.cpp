@@ -18,6 +18,15 @@ Hunter::Hunter()
 
 }
 
+Hunter::~Hunter()
+{
+	threadInfo->isThreadActive = false;
+	threadInfo->isActive = false;
+	WaitForSingleObject(threadInfo->threadHandle, INFINITE);
+	CloseHandle(threadInfo->threadHandle);
+	DeleteCriticalSection(&threadInfo->cs);
+}
+
 glm::vec3 Hunter::GetPosition()
 {
 	return transform.position;
@@ -184,7 +193,7 @@ void Hunter::UpdateHunterPosition(float deltaTime)
 
 						//MazeManager::GetInstance().RemoveCollectedTreasure(transform.position.x, transform.position.y);
 						//MazeManager::GetInstance().treasureCount--;
-						std::cout << "Teasurecollected" << treasureCollected << std::endl;
+						std::cout <<"Hunter Id: "<<id << " Teasurecollected : " << treasureCollected << std::endl;
 
 					
 					}
@@ -208,7 +217,8 @@ void Hunter::UpdateHunterPosition(float deltaTime)
 				MazeManager::GetInstance().treasureCount--;
 
 				treasureCollected++;
-				std::cout << "Teasurecollected" << treasureCollected << std::endl;
+				std::cout << "Hunter Id: " << id << " Teasurecollected : " << treasureCollected << std::endl;
+
 			}
 		}
 		else
@@ -217,4 +227,70 @@ void Hunter::UpdateHunterPosition(float deltaTime)
 		}
 	}
 	
+}
+
+
+
+
+DWORD WINAPI UpdateHunterThread(LPVOID lpParameter)
+{
+	HunterThread* threadPointer = (HunterThread*)lpParameter;
+
+	threadPointer->hunterObject->mazeController = threadPointer->mazeController;
+
+	double lastFrameTime = glfwGetTime();
+	double timeStep = 0.0;
+	DWORD sleepTime_ms = 1;
+
+	InitializeCriticalSection(&threadPointer->cs);
+
+	while (threadPointer->isActive)
+	{
+		if (threadPointer->isThreadActive)
+		{
+			double currentTime = glfwGetTime();
+			double deltaTime = currentTime - lastFrameTime;
+			lastFrameTime = currentTime;
+
+			timeStep += deltaTime;
+
+			if (timeStep>= threadPointer->desiredUpdateTime)
+			{
+				timeStep = 0;
+				if (*(threadPointer->playMode) == true)
+				{
+					threadPointer->hunterObject->UpdateHunterPosition(threadPointer->desiredUpdateTime);
+
+				}
+
+			}
+
+
+			//Sleep(threadPointer->sleepTime);
+			
+		}
+
+		Sleep(threadPointer->sleepTime);
+
+	}
+
+
+	return 0;
+
+}
+
+void Hunter::InitializeThread()
+{
+	threadInfo = new HunterThread();
+
+	threadInfo->mazeController = &MazeManager::GetInstance();
+	threadInfo->hunterObject = this;
+	threadInfo->isActive = true;
+	threadInfo->sleepTime = 1;
+	threadInfo->ThreadId = 0;
+
+
+	threadInfo->threadHandle = CreateThread(0, NULL, UpdateHunterThread,
+		(void*)threadInfo, 0, &threadInfo->ThreadId);
+
 }

@@ -1,6 +1,15 @@
+
 #include"ApplicationRenderer.h"
 #include"Threading/ApplicationThread.h"
-#include "Threading/StartThreads.h"
+
+ApplicationThread* applicationThread = applicationThreadExtern;
+
+//HunterThread* hunterThread = hunterThreadExtern;
+
+//std::vector<HunterThread*>  listOfhuntersThread = huntersThreadsExtern;
+
+
+void IntializeMoreHunters(float time);
 
 ApplicationRenderer::ApplicationRenderer()
 {
@@ -18,8 +27,7 @@ ApplicationRenderer::~ApplicationRenderer()
 {
 }
 
-ApplicationThread* applicationThread = applicationThreadExtern;
-HunterThread* hunterThread = hunterThreadExtern;
+
 
 void ApplicationRenderer::WindowInitialize(int width, int height, std::string windowName)
 {
@@ -222,16 +230,29 @@ void ApplicationRenderer::Start()
 
    
 
-    MazeManager::GetInstance().GenerateTreasures(2);
+    MazeManager::GetInstance().GenerateTreasures(250);
 
     //Hunter* firstHunter = new Hunter();
 
 
     //firstHunter->transform.SetPosition(moveNewLocation);
-    hunterThread->playMode = &isPlayMode;
-    IntializeHunterThread(0.01);
 
-    hunterThread->isThreadActive = true;
+    
+    for (size_t i = 0; i < 64; i++)
+    {
+        Hunter* hunter = new Hunter();
+        hunter->id = i + 1;
+        hunter->InitializeThread();
+
+        hunter->threadInfo->playMode = &isPlayMode;
+         hunter->threadInfo->isThreadActive = true;
+    }
+   
+       // hunterThread->playMode = &isPlayMode;
+
+    //hunterThread->isThreadActive = true;
+
+  //  applicationThread->isThreadActive = true;
 }
 
 void ApplicationRenderer::PreRender()
@@ -329,11 +350,20 @@ void ApplicationRenderer::Render()
     DeleteCriticalSection(&applicationThread->cs);
     
 
-    hunterThread->isThreadActive = false;
-    hunterThread->isActive = false;
-    WaitForSingleObject(hunterThread->threadHandle, INFINITE);
-    CloseHandle(hunterThread->threadHandle);
-    DeleteCriticalSection(&hunterThread->cs);
+    //hunterThread->isThreadActive = false;
+    //hunterThread->isActive = false;
+    //WaitForSingleObject(hunterThread->threadHandle, INFINITE);
+    //CloseHandle(hunterThread->threadHandle);
+    //DeleteCriticalSection(&hunterThread->cs);
+
+    /*for (size_t i = 0; i < listOfhuntersThread.size(); i++)
+    {
+        listOfhuntersThread[i]->isThreadActive = false;
+        listOfhuntersThread[i]->isActive = false;
+        WaitForSingleObject(listOfhuntersThread[i]->threadHandle, INFINITE);
+        CloseHandle(listOfhuntersThread[i]->threadHandle);
+        DeleteCriticalSection(&listOfhuntersThread[i]->cs);
+    }*/
 
 
     ImGui_ImplOpenGL3_Shutdown();

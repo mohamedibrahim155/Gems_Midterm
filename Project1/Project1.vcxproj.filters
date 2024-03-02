@@ -521,6 +521,9 @@
     <ClInclude Include="src\Maze\PathFinding\PathFinding.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Maze\Hunter\HunterThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source.frag" />

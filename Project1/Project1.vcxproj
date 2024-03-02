@@ -293,6 +293,7 @@
     <ClInclude Include="src\Threading\BaseMyThread.h" />
     <ClInclude Include="src\Threading\ExampleClass.h" />
     <ClInclude Include="src\Threading\ExampleClassTwo.h" />
+    <ClInclude Include="src\Maze\Hunter\HunterThread.h" />
     <ClInclude Include="src\Threading\MyThread.h" />
     <ClInclude Include="src\Threading\ApplicationThread.h" />
     <ClInclude Include="src\Threading\StartThreads.h" />

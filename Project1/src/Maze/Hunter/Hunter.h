@@ -1,6 +1,6 @@
 #pragma once
 #include"../../model.h"
-
+#include "HunterThread.h"
 
 class MazeManager;
 
@@ -11,10 +11,14 @@ enum  eHunterState
     FLEE = 2, 
 
 };
+
+
+
 class Hunter : public Model
 {
 public:
 	Hunter();
+	~Hunter();
 
     eHunterState state = SEARCHING;
 
@@ -44,7 +48,10 @@ public:
 
     void UpdateHunterPosition(float deltaTime);
 
+    HunterThread* threadInfo;
 
+    int Id = 0;
+    void InitializeThread();
 private:
 
     glm::vec3 targetPosition;
