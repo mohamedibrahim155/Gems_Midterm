@@ -25,6 +25,7 @@ public:
 
 
     void SetTreasureTarget(int x, int y);
+    void SetTreasureTarget();
 
     void MovePosition(int x, int y);
     void MovePosition(glm::vec3 position);
@@ -38,6 +39,8 @@ public:
     void OnDestroy()override;
 
     void UpdateHunterPosition(float deltaTime);
+
+
 private:
 
     glm::vec3 targetPosition;
@@ -51,5 +54,6 @@ private:
     int iteration = 0;
 
     bool isReached = false;
+    bool isStartinvoked = false;
 };
 

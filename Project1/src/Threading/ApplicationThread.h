@@ -96,7 +96,11 @@ DWORD WINAPI UpdateHunterThread(LPVOID lpParameter)
 			if (timeStep>= threadPointer->desiredUpdateTime)
 			{
 				timeStep = 0;
-				threadPointer->hunterObject->UpdateHunterPosition(threadPointer->desiredUpdateTime);
+				if (*(threadPointer->playMode) == true)
+				{
+					threadPointer->hunterObject->UpdateHunterPosition(threadPointer->desiredUpdateTime);
+
+				}
 
 			}
 

@@ -31,6 +31,7 @@ struct HunterThread
 {
     Hunter* hunterObject;
     MazeManager* mazeController;
+    bool* playMode;
     double desiredUpdateTime = 1.0f/60.0f;
     bool isThreadActive = false;
     bool isActive = true;

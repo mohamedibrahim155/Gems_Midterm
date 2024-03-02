@@ -213,7 +213,6 @@ void ApplicationRenderer::Start()
     directionLight->transform.SetRotation(glm::vec3(0, -130, 0));
     directionLight->transform.SetScale(glm::vec3(0.2));
 
-  //  IntializeHunterThread(0.01);
 
     Maze* maze = new Maze();
 
@@ -225,12 +224,14 @@ void ApplicationRenderer::Start()
 
     MazeManager::GetInstance().GenerateTreasures(250);
 
-    Hunter* firstHunter = new Hunter();
+    //Hunter* firstHunter = new Hunter();
 
 
     //firstHunter->transform.SetPosition(moveNewLocation);
-    
-   // hunterThread->isThreadActive = true;
+    hunterThread->playMode = &isPlayMode;
+    IntializeHunterThread(0.01);
+
+    hunterThread->isThreadActive = true;
 }
 
 void ApplicationRenderer::PreRender()
@@ -328,11 +329,11 @@ void ApplicationRenderer::Render()
     DeleteCriticalSection(&applicationThread->cs);
     
 
-   // hunterThread->isThreadActive = false;
-   // hunterThread->isActive = false;
-   // WaitForSingleObject(hunterThread->threadHandle, INFINITE);
-   // CloseHandle(hunterThread->threadHandle);
-   // DeleteCriticalSection(&hunterThread->cs);
+    hunterThread->isThreadActive = false;
+    hunterThread->isActive = false;
+    WaitForSingleObject(hunterThread->threadHandle, INFINITE);
+    CloseHandle(hunterThread->threadHandle);
+    DeleteCriticalSection(&hunterThread->cs);
 
 
     ImGui_ImplOpenGL3_Shutdown();
@@ -406,7 +407,7 @@ void ApplicationRenderer::EngineGameLoop()
 
     if (isPlayMode)
     {
-        EntityManager::GetInstance().Update(Time::GetInstance().deltaTime);
+       // EntityManager::GetInstance().Update(Time::GetInstance().deltaTime);
     }
 
     PostRender();

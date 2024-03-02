@@ -33,6 +33,11 @@ void Hunter::SetTreasureTarget(int x, int y)
 	targetPosition = glm::vec3(x, y, 0);
 }
 
+void Hunter::SetTreasureTarget()
+{
+	targetPosition =MazeManager::GetInstance().GetRandomTreasure();
+}
+
 void Hunter::MovePosition(int x, int y)
 {
 	//if (maze->IsWall(x, y)) return;
@@ -62,7 +67,16 @@ void Hunter::Start()
 {
 	MovePosition(intialPosition.x, intialPosition.y);
 
-	positions = MazeManager::GetInstance().GetPoints(intialPosition);
+	SetTreasureTarget();
+
+	positions = MazeManager::GetInstance().GetPoints(intialPosition, targetPosition);
+
+	do
+	{
+		SetTreasureTarget();
+		positions = MazeManager::GetInstance().GetPoints(intialPosition, targetPosition);
+
+	} while (positions.size()==0);
 }
 
 void Hunter::Update(float deltaTime)
@@ -75,13 +89,21 @@ void Hunter::Update(float deltaTime)
 
 		if (!isReached)
 		{
-			MovePosition(positions[iteration]);
-			iteration++;
+		
+			if (positions.size()!=0 && iteration<positions.size())
+			{
+				MovePosition(positions[iteration]);
 
-			if (iteration>= positions.size())
+			}
+			else
 			{
 				isReached = true;
+
+				state = TOOK;
 			}
+			iteration++;
+
+			
 		}
 
 	}
@@ -108,7 +130,43 @@ void Hunter::UpdateHunterPosition(float deltaTime)
 	{
 		//glm::vec3 randomPosition = mazeController->GetARandomMovePosition(transform.position);
 
+		if (!isStartInvoked)
+		{
+			Start();
+			isStartInvoked = true;
+		}
 		//MovePosition(randomPosition);
+
+		if (timer >= interval)
+		{
+			timer = 0;
+
+			//glm::vec3 randomPosition = MazeManager::GetInstance().GetARandomMovePosition(transform.position);
+
+			if (!isReached)
+			{
+
+				if (positions.size() != 0 && iteration < positions.size())
+				{
+					MovePosition(positions[iteration]);
+
+				}
+				else
+				{
+					isReached = true;
+
+					state = TOOK;
+				}
+				iteration++;
+
+
+			}
+
+		}
+		else
+		{
+			timer += deltaTime;
+		}
 	}
 	
 }
