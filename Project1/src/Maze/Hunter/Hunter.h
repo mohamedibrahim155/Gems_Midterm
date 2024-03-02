@@ -9,6 +9,7 @@ enum  eHunterState
     SEARCHING = 0,
     TOOK = 1,
     FLEE = 2, 
+
 };
 class Hunter : public Model
 {
@@ -29,11 +30,14 @@ public:
 
     void MovePosition(int x, int y);
     void MovePosition(glm::vec3 position);
-    
+    void Intitialize();
+
     void DrawProperties()override;
     void SceneDraw()override;
 
     void Start() override;
+
+
     void Update(float deltaTime) override;
     void Render()override;
     void OnDestroy()override;
@@ -47,7 +51,7 @@ private:
 
 
     float timer = 0;
-    float interval = 0.2f;
+    float interval = 0.1f;
 
     std::vector<glm::vec3 > positions;
 
@@ -55,5 +59,7 @@ private:
 
     bool isReached = false;
     bool isStartinvoked = false;
+
+    int treasureCollected = 0;
 };
 

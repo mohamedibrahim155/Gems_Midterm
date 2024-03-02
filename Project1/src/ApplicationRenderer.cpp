@@ -222,7 +222,7 @@ void ApplicationRenderer::Start()
 
    
 
-    MazeManager::GetInstance().GenerateTreasures(250);
+    MazeManager::GetInstance().GenerateTreasures(2);
 
     //Hunter* firstHunter = new Hunter();
 

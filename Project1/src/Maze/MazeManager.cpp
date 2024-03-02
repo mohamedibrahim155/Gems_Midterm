@@ -40,32 +40,32 @@ void MazeManager::GenerateTreasures(int treasureCount)
 		int min = mazeValueJ;
 		int max = -1;
 
-		int randomNumber = min + std::rand() % (max - min + 1);
-		//int j = Math::GetRandomIntNumber(-mazeValueJ, -1);
-		int j = randomNumber;
+	//	int randomNumber = min + std::rand() % (max - min + 1);
+		int j = Math::GetRandomIntNumber(mazeValueJ, -1);
+		//int j = randomNumber;
 		min = mazeValueI;
 
-		randomNumber = min + std::rand() % (max - min + 1);
-		//int i = Math::GetRandomIntNumber(-mazeValueI, -1);
-		int i = randomNumber;
+	//	randomNumber = min + std::rand() % (max - min + 1);
+		int i = Math::GetRandomIntNumber(mazeValueI, -1);
+		//int i = randomNumber;
 
 		std::cout << "maze value x" << i << " , " << j << std::endl;
 		do
 		{
-			//j = Math::GetRandomIntNumber(-mazeValueJ, -1);
+			j = Math::GetRandomIntNumber(mazeValueJ, -1);
 
-			randomNumber = mazeValueJ + std::rand() % (max - mazeValueJ + 1);
+			//randomNumber = mazeValueJ + std::rand() % (max - mazeValueJ + 1);
 
-			j = randomNumber;
+			//j = randomNumber;
 
 
-			//i = Math::GetRandomIntNumber(-mazeValueI, -1);
+			i = Math::GetRandomIntNumber(mazeValueI, -1);
 
-			randomNumber = mazeValueI + std::rand() % (max - mazeValueI + 1);
+			//randomNumber = mazeValueI + std::rand() % (max - mazeValueI + 1);
 
-			i = randomNumber;
+			//i = randomNumber;
 
-		} while (!maze->IsWall(j, i) && !IsTreasureOccupied(j, i));
+		} while (  !IsTreasureOccupied(j, i) && maze->IsWall(j, i));
 
 		treasure->SetPosition(j, i);
 
@@ -161,10 +161,10 @@ std::vector<glm::vec3>  MazeManager::GetPoints(glm::vec3& hunterPosition, glm::v
 
 glm::vec3 MazeManager::GetRandomTreasure()
 {
+	int random = Math::GetRandomIntNumber(0, listOfTreasures.size() - 1);
+	/*int randomNumber = 0 + std::rand() % (listOfTreasures.size() - 0 + 1);*/
 
-	int randomNumber = 0 + std::rand() % (listOfTreasures.size() - 0 + 1);
-
-	return listOfTreasures[randomNumber]->GetPosition();
+	return listOfTreasures[random]->GetPosition();
 }
 
 int MazeManager::GetRandomDirection(glm::vec3 position)
@@ -215,12 +215,35 @@ int MazeManager::GetRandomDirection(glm::vec3 position)
 
 bool MazeManager::IsTreasureOccupied(int x, int y)
 {
+	if (listOfTreasures.size()==0)
+	{
+		return true;
+	}
 	for (Treasure* treasure : listOfTreasures)
 	{
-		if (treasure->GetPosition().x == x && treasure->GetPosition().y)
+		if (treasure->GetPosition().x == x && treasure->GetPosition().y == y)
 		{
 			return true;
 		}
 	}
 	return false;
 }
+
+void MazeManager::RemoveCollectedTreasure(int x, int y)
+{
+	Treasure* removeValue = nullptr;
+	for (Treasure* treasure : listOfTreasures)
+	{
+		if (treasure->GetPosition().x == x && treasure->GetPosition().y == y)
+		{
+			removeValue = treasure;
+			removeValue->isVisible = false;
+		}
+	}
+
+	if (removeValue)
+	{
+		listOfTreasures.erase(std::remove(listOfTreasures.begin(), listOfTreasures.end(), removeValue), listOfTreasures.end());
+	}
+}
+

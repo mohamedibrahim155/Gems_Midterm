@@ -13,7 +13,7 @@ Hunter::Hunter()
 
 	//GraphicsRender::GetInstance().AddModelAndShader(this, GraphicsRender::GetInstance().solidColorShader);
 
-
+	transform.SetPosition(intialPosition);
 	transform.SetScale(glm::vec3(0.5f));
 
 }
@@ -50,12 +50,42 @@ void Hunter::MovePosition(glm::vec3 position)
 	transform.SetPosition(position);
 }
 
+void Hunter::Intitialize()
+{
+	if (MazeManager::GetInstance().treasureCount == 0)
+	{
+
+		state = FLEE;
+		positions.clear();
+		return;
+	}
+
+	//SetTreasureTarget();
+
+	//positions = MazeManager::GetInstance().GetPoints(transform.position, targetPosition);
+
+	
+
+	do
+	{
+		SetTreasureTarget();
+		positions = MazeManager::GetInstance().GetPoints(transform.position, targetPosition);
+
+	} while (positions.size() == 0);
+}
+
 
 
 
 void Hunter::DrawProperties()
 {
 	Model::DrawProperties();
+
+	ImGui::SetNextItemWidth(80);
+	ImGui::InputText("Treasure collected", &name[0], 256);
+	ImGui::SameLine();
+	ImGui::SetNextItemWidth(80);
+	ImGui::DragInt("###Treasurecollected", &treasureCollected);
 }
 
 void Hunter::SceneDraw()
@@ -67,16 +97,7 @@ void Hunter::Start()
 {
 	MovePosition(intialPosition.x, intialPosition.y);
 
-	SetTreasureTarget();
-
-	positions = MazeManager::GetInstance().GetPoints(intialPosition, targetPosition);
-
-	do
-	{
-		SetTreasureTarget();
-		positions = MazeManager::GetInstance().GetPoints(intialPosition, targetPosition);
-
-	} while (positions.size()==0);
+	Intitialize();
 }
 
 void Hunter::Update(float deltaTime)
@@ -132,7 +153,7 @@ void Hunter::UpdateHunterPosition(float deltaTime)
 
 		if (!isStartInvoked)
 		{
-			Start();
+			Intitialize();
 			isStartInvoked = true;
 		}
 		//MovePosition(randomPosition);
@@ -156,12 +177,39 @@ void Hunter::UpdateHunterPosition(float deltaTime)
 					isReached = true;
 
 					state = TOOK;
+
+					if (MazeManager::GetInstance().IsTreasureOccupied(transform.position.x, transform.position.y))
+					{
+						treasureCollected += 1;
+
+						//MazeManager::GetInstance().RemoveCollectedTreasure(transform.position.x, transform.position.y);
+						//MazeManager::GetInstance().treasureCount--;
+						std::cout << "Teasurecollected" << treasureCollected << std::endl;
+
+					
+					}
+
+
+					isStartInvoked = false;
+					isReached = false;
+					iteration = 0;
 				}
 				iteration++;
 
 
 			}
 
+			
+			if (MazeManager::GetInstance().IsTreasureOccupied(transform.position.x, transform.position.y))
+
+			{
+
+				MazeManager::GetInstance().RemoveCollectedTreasure(transform.position.x, transform.position.y);
+				MazeManager::GetInstance().treasureCount--;
+
+				treasureCollected++;
+				std::cout << "Teasurecollected" << treasureCollected << std::endl;
+			}
 		}
 		else
 		{

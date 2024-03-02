@@ -22,7 +22,7 @@ public:
 	//std::vector<Hunter*> listOfHunters;
 
 	bool IsTreasureOccupied(int x, int y);
-
+	void RemoveCollectedTreasure(int x, int y);
 	
 
 	//Hunter* CreateHunter(int x, int y);
@@ -35,6 +35,7 @@ public:
 
 	void SetMaze(Maze* maze);
 	void GenerateTreasures(int treasureCount);
+	int treasureCount = 250;
 
 private:
 
